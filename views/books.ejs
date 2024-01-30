@@ -1,0 +1,34 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  <title>All Books Page</title>
+</head>
+<body>
+
+  <h1 style="padding-top: 50px;">All Books Page</h1>
+  <hr>
+  
+  <h2>Book List</h2>
+  
+  <ul>
+    <% books.forEach((book, index) => { %>
+      <li>
+        <strong>Title:</strong> <%= book.title %><br>
+        <strong>Author:</strong> <%= book.author %><br>
+        <strong>Notes:</strong> <%= book.notes %><br>
+        <strong>Ratings:</strong> <%= book.ratings %><br>
+        <% if (index === 0) { %>
+          <img src="https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg" alt="<%= book.title %> Image">
+        <% } else if (index === 1) { %>
+          <img src="https://covers.openlibrary.org/b/isbn/0849946158-M.jpg" alt="<%= book.title %> Image">
+          <% } %>
+          <% }); %>          
+        
+  </ul>
+  
+</body>
+</html>

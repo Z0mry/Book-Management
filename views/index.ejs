@@ -1,0 +1,80 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="/style.css">
+
+  <title>Book Management </title>
+</head>
+<body>
+
+  <h2>Get All Books</h2>
+  <p style="font-size: 22px; color: black; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">Explore a world of knowledge with our Notes and Books platform. Immerse yourself in a curated collection of literary treasures and insightful notes.</p>
+   <p style="margin-top: 0%;"> "To provide you with a swift and responsive browsing experience, we've chosen to forgo images, ensuring our pages load quickly, especially in low-bandwidth environments."</p>
+  <button onclick="redirectToAllBooks()" style="width: 150px;">Get All Books</button>
+  <pre id="getAllBooksResult"></pre>
+
+  <h2>Add a New Book</h2>
+  <form id="addBookForm">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br>
+
+    <label for="author">Author:</label>
+    <input type="text" id="author" name="author" required><br>
+
+    <label for="notes">Notes:</label>
+    <textarea id="notes" name="notes"></textarea><br>
+
+    <label for="ratings">Ratings:</label>
+    <input type="number" id="ratings" name="ratings" min="1" max="5" required><br>
+
+    
+
+    <button type="button" onclick="addBook()">Add Book</button>
+  </form>
+
+  <script>
+    function redirectToAllBooks() {
+      window.location.href = '/all';
+    }
+
+    async function addBook() {
+      const form = document.getElementById('addBookForm');
+      const formData = new FormData(form);
+
+      const response = await fetch('/books', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      alert('Book added successfully');
+    }
+
+    async function deleteBook(id) {
+    const confirmDelete = confirm('Are you sure you want to delete this book?');
+    if (confirmDelete) {
+      try {
+        const response = await fetch(`/books/${id}`, {
+          method: 'DELETE',
+        });
+
+        if (response.ok) {
+          redirectToAllBooks();
+        } else {
+          console.error('Failed to delete the book');
+        }
+      } catch (error) {
+        console.error('Error occurred during deletion:', error);
+      }
+    }
+  }
+    
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</body>
+</html>
